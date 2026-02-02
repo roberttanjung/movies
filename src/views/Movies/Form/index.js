@@ -7,54 +7,92 @@ import Link from "next/link";
 
 const MovieForm = ({ direction }) => {
   const params = useParams();
+  
+  const isView = direction === "view";
 
-  const [item, setItem ] = useState({
+  const [item, setItem] = useState({
     title: '',
     year: '',
     genre: '',
     director: '',
     writer: '',
-    actor: '',
+    actors: '', 
   });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "year") {
+      const numericValue = value.replace(/[^0-9]/g, "").slice(0, 4);
+      setItem((prev) => ({
+        ...prev,
+        [name]: numericValue,
+      }));
+      return;
+    }
+  
+    setItem((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+        console.log("Data akan disimpan:", item);
+        alert("Tombol Simpan diklik! Data: " + JSON.stringify(item));
+    } catch (error) {
+        console.error("Gagal menyimpan", error);
+    }
+  };
 
   const getData = useCallback(async () => {
     if (params.id) {
-      const response = await axios.get(`https://fooapi.com/api/movies/${params.id}`);
-
-      if (response.status === 200) {
-        setItem(previous => ({
-          ...previous,
-          title: response.data.data.title,
-          year: response.data.data.year,
-          genre: response.data.data.genre,
-          director: response.data.data.director,
-          writer: response.data.data.writer,
-          actors: response.data.data.actors,
-        }));
+      try {
+        const response = await axios.get(`https://fooapi.com/api/movies/${params.id}`);
+          
+        if (response.status === 200) {
+          setItem(previous => ({
+            ...previous,
+            title: response.data.data.title,
+            year: response.data.data.year,
+            genre: response.data.data.genre,
+            director: response.data.data.director,
+            writer: response.data.data.writer,
+            actors: response.data.data.actors,
+          }));
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
       }
     }
   }, [params.id]);
 
-  const setup = useCallback(async () => {
-    await getData()
+  useEffect(() => {
+    getData();
   }, [getData]);
 
-  useEffect(() => {
-    setup();
-  }, [setup]);
+  const getTitle = () => {
+    if (direction === 'add') return "Tambah Movie";
+    if (direction === 'edit') return "Edit Movie";
+    return "Detail Movie";
+  }
 
   return (
-<div className="card-container">
-      <h2 className="form-title">Detail Movie</h2>
+    <div className="card-container">
+      <h2 className="form-title">{getTitle()}</h2>
       
       <form>
         <div className="form-group">
           <label className="form-label">Judul</label>
           <input 
+            name="title" 
             type="text" 
             className="form-input" 
             value={item.title} 
-            disabled={direction === 'view'}
+            onChange={!isView ? handleChange : undefined} 
+            readOnly={isView} // Mati jika view
+            placeholder="Masukkan judul film"
           />
         </div>
 
@@ -62,19 +100,30 @@ const MovieForm = ({ direction }) => {
           <div className="form-col">
             <div className="form-group">
               <label className="form-label">Tahun</label>
-              <select className="form-select" value={item.year} disabled>
-                 <option value={item.year}>{item.year}</option>
-              </select>
+              <input 
+                name="year"
+                type="text"
+                inputMode="numeric"
+                className="form-input" 
+                value={item.year} 
+                onChange={!isView ? handleChange : undefined}
+                disabled={isView}
+                placeholder="Contoh: 2024"
+                >
+              </input>
             </div>
           </div>
           <div className="form-col">
             <div className="form-group">
               <label className="form-label">Genre</label>
               <input 
+                name="genre"
                 type="text" 
                 className="form-input" 
                 value={item.genre} 
-                readOnly 
+                onChange={!isView ? handleChange : undefined}
+                readOnly={isView} 
+                placeholder="Masukkan genre"
               />
             </div>
           </div>
@@ -83,30 +132,39 @@ const MovieForm = ({ direction }) => {
         <div className="form-group">
           <label className="form-label">Sutradara</label>
           <input 
+            name="director"
             type="text" 
             className="form-input" 
             value={item.director} 
-            readOnly 
+            onChange={!isView ? handleChange : undefined}
+            readOnly={isView} 
+            placeholder="Masukkan nama sutradara"
           />
         </div>
 
         <div className="form-group">
           <label className="form-label">Penulis</label>
           <input 
+            name="writer"
             type="text" 
             className="form-input" 
             value={item.writer} 
-            readOnly 
+            onChange={!isView ? handleChange : undefined}
+            readOnly={isView} 
+            placeholder="Masukkan nama penulis"
           />
         </div>
 
         <div className="form-group">
           <label className="form-label">Aktor</label>
           <input 
+            name="actors"
             type="text" 
             className="form-input" 
             value={item.actors} 
-            readOnly 
+            onChange={!isView ? handleChange : undefined}
+            readOnly={isView} 
+            placeholder="Masukkan nama aktor"
           />
         </div>
 
@@ -115,9 +173,15 @@ const MovieForm = ({ direction }) => {
             Kembali
           </Link>
           
-          <Link href={`/movie/${params.id}/edit`} className="btn btn-primary">
-            Ubah
-          </Link>
+          {isView ? (
+             <Link href={`/movie/edit/${params.id}`} className="btn btn-primary">
+               Ubah
+             </Link>
+          ) : (
+             <button type="button" onClick={handleSubmit} className="btn btn-primary">
+               {direction === 'add' ? 'Tambah' : 'Simpan'}
+             </button>
+          )}
         </div>
       </form>
     </div>
