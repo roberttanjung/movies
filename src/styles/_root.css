@@ -1,0 +1,34 @@
+:root {
+  --bg-app: #131722;       
+  --bg-panel: #181e2a;     
+  --bg-card: #1f2533;      
+  --bg-input: #252b3b;     
+  --text-primary: #ffffff;
+  --text-secondary: #64748b;
+  --accent-blue: #1e40af;
+  --border-color: #2d3748;
+}
+
+:root {
+  --bg-app: #131722;       
+  --bg-panel: #181e2a;     
+  --bg-card: #1f2533;      
+  --bg-input: #252b3b;    
+  
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --accent-blue: #3b82f6;
+  --border-color: #2d3748;
+  --rating-star: #fbbf24;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden; */
+}

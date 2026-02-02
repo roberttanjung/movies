@@ -1,0 +1,227 @@
+.search-box {
+  position: relative;
+  width: 300px;
+}
+
+.search-input {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: none;
+  padding: 10px 16px 10px 40px;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+}
+
+.card-container {
+  background-color: var(--bg-card);
+  width: 100%;
+  min-height: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 30px;
+}
+
+.movie-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.movie-table th {
+  text-align: left;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.movie-table td {
+  padding: 20px 0;
+  vertical-align: top;
+  color: var(--text-secondary);
+  padding-right: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.movie-table tr:last-child td {
+  border-bottom: none;
+}
+
+.movie-title {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.movie-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* .star {
+  color: var(--rating-star);
+} */
+
+.card-container {
+  background-color: #1f2533;
+  border-radius: 12px;
+  padding: 40px;
+  box-sizing: border-box;
+  border: 1px solid #2d3748;
+  min-height: 80vh;
+  width: 95%;      
+  margin: 0 auto; 
+  max-width: 1200px; 
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff; /* Judul Putih */
+  margin-bottom: 30px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e2e8f0; /* Label putih agak abu */
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+}
+
+.form-col {
+  flex: 1; /* Membagi lebar kolom 50:50 rata */
+}
+
+.form-input, .form-select {
+  width: 100%;
+  background-color: #2a303d; 
+  border: 1px solid #3f475e; 
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffffff; 
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+  margin: 0;
+}
+
+.form-input::placeholder {
+  color: #64748b; 
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); 
+}
+
+
+.form-input:read-only, .form-select:disabled {
+  background-color: #161b26; 
+  border-color: transparent;  
+  color: #64748b;
+  cursor: default; 
+}
+
+.form-input:read-only:focus, .form-select:disabled:focus {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: #334155; 
+  color: #ffffff;
+}
+
+.btn-primary {
+  background-color: #6366f1; 
+  color: #ffffff;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; 
+  cursor: pointer;
+}
+
+.tooltiptext {
+  visibility: hidden; 
+  width: 130px;
+  background-color: black;
+  color: #ffffff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  width: 130px;
+  bottom: 100%;
+  left: 65%;
+  margin-left: -65px; 
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
