@@ -40,24 +40,13 @@ const MovieForm = ({ direction }) => {
   const handleSubmit = async () => {
     
     if (direction === 'add') {
-      axios.post('https://fooapi.com/api/movies', JSON.stringify({
+      axios.post('http://localhost:3001/movies', JSON.stringify({
         'title': item.title,
-        'year':item.year,
-        'rated':'R',
-        'released':'14-10-1994',
-        'runtime':'142 min',
-        'genre':item.genre,
-        'director':item.director,
-        'writer':item.writer,
-        'actors':item.actors,
-        'plot':'A Foo movie',
-        'language':'English',
-        'country':'United States',
-        'awards':'Nominated for 11 oscars',
-        'poster':'Foo poster',
-        'imdbRating':'10',
-        'imdbId':'None',
-        'boxOffice':'$1'
+        'year': item.year,
+        'genre': item.genre,
+        'director': item.director,
+        'writer': item.writer,
+        'actors': item.actors
       }), {
         headers: { 'Content-Type': 'application/json' } 
       })
@@ -94,17 +83,17 @@ const MovieForm = ({ direction }) => {
             return;
         }
 
-        const response = await axios.get(`https://fooapi.com/api/movies/${params.id}`);
+        const response = await axios.get(`http://localhost:3001/movies/${params.id}`);
           
         if (response.status === 200) {
           setItem(previous => ({
             ...previous,
-            title: response.data.data.title,
-            year: response.data.data.year,
-            genre: response.data.data.genre,
-            director: response.data.data.director,
-            writer: response.data.data.writer,
-            actors: response.data.data.actors,
+            title: response.data.title,
+            year: response.data.year,
+            genre: response.data.genre,
+            director: response.data.director,
+            writer: response.data.writer,
+            actors: response.data.actors,
           }));
         }
       } catch (err) {

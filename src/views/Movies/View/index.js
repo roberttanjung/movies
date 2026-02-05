@@ -2,21 +2,17 @@
 
 import { useEffect, useCallback, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import PageViewRow from "./Row";
 
 const PageView = () => {
 
-  const [data, setData] = useState([]); 
-    const {push} = useRouter();  
-  const [isClicked, setIsClicked] = useState(false);
+  const [data, setData] = useState([]);
 
-const onGetData = useCallback(async () => {
+  const onGetData = useCallback(async () => {
     try {
-      const response = await axios.get('https://fooapi.com/api/movies');
+      const response = await axios.get('http://localhost:3001/movies');
       console.log('Fetched data:', response);
-      setData(response.data.data);
+      setData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
