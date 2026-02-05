@@ -10,19 +10,18 @@ const PageView = () => {
   const [data, setData] = useState([]); 
     const {push} = useRouter();  
 
-const onGetData = useCallback(async () => {
-    try {
-      const response = await axios.get('https://fooapi.com/api/movies');
-      console.log('Fetched data:', response);
-      setData(response.data.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }, []);
-
-  useEffect(() => {
-    onGetData();
-  }, [onGetData]);
+    useEffect(() => {
+      const onGetData = async () => {
+        try {
+          const response = await axios.get('https://fooapi.com/api/movies');
+          console.log('Fetched data:', response);
+          setData(response.data.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      onGetData();
+    }, []);
 
   return (
     <div className="table-container">

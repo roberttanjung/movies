@@ -38,6 +38,43 @@ const MovieForm = ({ direction }) => {
   };
 
   const handleSubmit = async () => {
+    if (direction === 'edit') {
+      axios(`https://fooapi.com/api/movies/${params.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+        'title': item.title,
+        'year':item.year,
+        'genre':item.genre,
+        'director':item.director,
+        'writer':item.writer,
+        'actors':item.actors,
+         })
+      })
+      .then(res => res.json())
+      .then(data => console.log("Response API:", data))
+      .catch(err => console.warn("Fetch Error (Diabaikan):", err));
+
+      try {
+        const existingDB = JSON.parse(localStorage.getItem('movies_db')) || [];
+        const index = existingDB.findIndex(m => m.id == params.id);
+        
+        if (index !== -1) {
+          existingDB[index] = { ...existingDB[index], ...item };
+          
+          localStorage.setItem('movies_db', JSON.stringify(existingDB));
+          alert("Berhasil mengupdate data!");
+        } else {
+          alert("Data tidak ditemukan di Local Storage (Mungkin data dummy API).");
+        }
+
+        router.refresh();
+        router.push('/view'); 
+      } catch (err) {
+        console.error("Gagal update local:", err);
+      }
+      return; 
+    }
     
     if (direction === 'add') {
       axios.post('https://fooapi.com/api/movies', JSON.stringify({
@@ -74,48 +111,47 @@ const MovieForm = ({ direction }) => {
       localStorage.setItem('movies_db', JSON.stringify([localData, ...existingDB]));
       
       router.refresh();
-      router.push('/view'); 
+      router.push(`/movie/view/${params.id}`); 
       
     } catch (err) {
       console.error("Error saving local:", err);
     }
   }
   };
-
-  const getData = useCallback(async () => {
-    if (params.id) {
-      try {
-
-        const localData = JSON.parse(localStorage.getItem('movies_db')) || [];
-        const foundLocal = localData.find(m => m.id == params.id);
-
-        if (foundLocal) {
-            setItem(foundLocal);
-            return;
-        }
-
-        const response = await axios.get(`https://fooapi.com/api/movies/${params.id}`);
-          
-        if (response.status === 200) {
-          setItem(previous => ({
-            ...previous,
-            title: response.data.data.title,
-            year: response.data.data.year,
-            genre: response.data.data.genre,
-            director: response.data.data.director,
-            writer: response.data.data.writer,
-            actors: response.data.data.actors,
-          }));
-        }
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      }
-    }
-  }, [params.id]);
-
+  
   useEffect(() => {
+    const getData = async () => {
+      if (params.id) {
+        try {
+          const localData = JSON.parse(localStorage.getItem('movies_db')) || [];
+          const foundLocal = localData.find(m => m.id == params.id);
+  
+          if (foundLocal) {
+              setItem(foundLocal);
+              return;
+          }
+  
+          const response = await axios.get(`https://fooapi.com/api/movies/${params.id}`);
+            
+          if (response.status === 200) {
+            setItem(previous => ({
+              ...previous,
+              title: response.data.data.title,
+              year: response.data.data.year,
+              genre: response.data.data.genre,
+              director: response.data.data.director,
+              writer: response.data.data.writer,
+              actors: response.data.data.actors,
+            }));
+          }
+        } catch (err) {
+          console.error("Error fetching data:", err);
+        }
+      }
+    };
+
     getData();
-  }, [getData]);
+  }, [params.id]); 
 
   const getTitle = () => {
     if (direction === 'add') return "Tambah Movie";
