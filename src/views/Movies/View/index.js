@@ -4,11 +4,13 @@ import { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import PageViewRow from "./Row";
 
 const PageView = () => {
 
   const [data, setData] = useState([]); 
     const {push} = useRouter();  
+  const [isClicked, setIsClicked] = useState(false);
 
 const onGetData = useCallback(async () => {
     try {
@@ -37,23 +39,17 @@ const onGetData = useCallback(async () => {
         </thead>
         <tbody>
           {data.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <div className="tooltip">
-                <Link href={`/movie/view/${item.id}`} className="movie-title">{item.title}</Link>
-                </div>
-                <div className="movie-meta">
-                  <span className="star">★{item.imdbRating}</span> 
-                  <span>|</span>
-                  <span>{item.year}</span>
-                  <span>{item.genre}</span>
-                </div>
-              </td>
-              <td>{item.director}</td>
-              <td>{item.writer}</td>
-              <td>{item.actors}</td>
-              
-            </tr>
+            <PageViewRow
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              imdbRating={item.imdbRating}
+              year={item.year}
+              genre={item.genre}
+              director={item.director}
+              writer={item.writer}
+              actors={item.actors}
+            />
           ))}
         </tbody>
       </table>
