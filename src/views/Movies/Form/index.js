@@ -1,13 +1,13 @@
 'use client';
 
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 const MovieForm = ({ direction }) => {
   const params = useParams();
-  
+  const router = useRouter();
   const isView = direction === "view";
 
   const [item, setItem] = useState({
@@ -38,17 +38,62 @@ const MovieForm = ({ direction }) => {
   };
 
   const handleSubmit = async () => {
+    
+    if (direction === 'add') {
+      axios.post('https://fooapi.com/api/movies', JSON.stringify({
+        'title': item.title,
+        'year':item.year,
+        'rated':'R',
+        'released':'14-10-1994',
+        'runtime':'142 min',
+        'genre':item.genre,
+        'director':item.director,
+        'writer':item.writer,
+        'actors':item.actors,
+        'plot':'A Foo movie',
+        'language':'English',
+        'country':'United States',
+        'awards':'Nominated for 11 oscars',
+        'poster':'Foo poster',
+        'imdbRating':'10',
+        'imdbId':'None',
+        'boxOffice':'$1'
+      }), {
+        headers: { 'Content-Type': 'application/json' } 
+      })
+      .then(res => console.log("Axios Success:", res.data)) 
+      .catch(err => console.warn("Axios Error (Simulasi):", err.message));
+  } else {
     try {
-        console.log("Data akan disimpan:", item);
-        alert("Tombol Simpan diklik! Data: " + JSON.stringify(item));
-    } catch (error) {
-        console.error("Gagal menyimpan", error);
+      const localData = {
+        'id': Date.now(), 
+        ...item,
+      };
+  
+      const existingDB = JSON.parse(localStorage.getItem('movies_db')) || [];
+      localStorage.setItem('movies_db', JSON.stringify([localData, ...existingDB]));
+      
+      router.refresh();
+      router.push('/view'); 
+      
+    } catch (err) {
+      console.error("Error saving local:", err);
     }
+  }
   };
 
   const getData = useCallback(async () => {
     if (params.id) {
       try {
+
+        const localData = JSON.parse(localStorage.getItem('movies_db')) || [];
+        const foundLocal = localData.find(m => m.id == params.id);
+
+        if (foundLocal) {
+            setItem(foundLocal);
+            return;
+        }
+
         const response = await axios.get(`https://fooapi.com/api/movies/${params.id}`);
           
         if (response.status === 200) {
