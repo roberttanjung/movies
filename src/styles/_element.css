@@ -97,13 +97,15 @@
   min-height: 80vh;
   width: 95%;      
   margin: 0 auto; 
-  max-width: 1200px; 
+  max-width: 1500px; 
+  overflow: hidden; 
+  display: block;
 }
 
 .form-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff; /* Judul Putih */
+  color: #ffffff; 
   margin-bottom: 30px;
 }
 
@@ -112,7 +114,7 @@
   margin-bottom: 8px;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #e2e8f0; /* Label putih agak abu */
+  color: #e2e8f0; 
 }
 
 .form-group {
@@ -126,10 +128,11 @@
 }
 
 .form-col {
-  flex: 1; /* Membagi lebar kolom 50:50 rata */
+  flex: 1; 
 }
 
 .form-input, .form-select {
+  box-sizing: border-box !important;
   width: 100%;
   background-color: #2a303d; 
   border: 1px solid #3f475e; 

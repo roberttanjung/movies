@@ -13,21 +13,16 @@ const PageViewRow = ({ id, title, imdbRating, year, genre, director, writer, act
         <Link href={`/movie/view/${id}`} className="movie-title">{title}</Link>
         </div>
         <div className="movie-meta">
-          <span className="star">★{imdbRating}</span> 
-          <span>|</span>
-          <span>{year}</span>
-          <span>{genre}</span>
+        <span className="star">★{imdbRating}</span> 
+        <span>|</span>
+        <span>{year}</span>
+        <span>{genre}</span>
         </div>
       </td>
       <td>{director}</td>
-      <td>
-        <a onClick={() => setIsClicked(prev => !prev)}>
-          {writer}
-        </a>
-        {isClicked && (<span>THIS WRITER IS CLICKED!!</span>)}
-      </td>
+      <td>{writer}</td>
       <td>{actors}</td>
-    </tr>
+  </tr>
   );
 }
 
