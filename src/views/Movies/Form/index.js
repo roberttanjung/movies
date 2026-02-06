@@ -39,41 +39,26 @@ const MovieForm = ({ direction }) => {
 
   const handleSubmit = async () => {
     if (direction === 'edit') {
-      axios(`https://fooapi.com/api/movies/${params.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-        'title': item.title,
-        'year':item.year,
-        'genre':item.genre,
-        'director':item.director,
-        'writer':item.writer,
-        'actors':item.actors,
-         })
-      })
-      .then(res => res.json())
-      .then(data => console.log("Response API:", data))
-      .catch(err => console.warn("Fetch Error (Diabaikan):", err));
-
       try {
-        const existingDB = JSON.parse(localStorage.getItem('movies_db')) || [];
-        const index = existingDB.findIndex(m => m.id == params.id);
-        
-        if (index !== -1) {
-          existingDB[index] = { ...existingDB[index], ...item };
-          
-          localStorage.setItem('movies_db', JSON.stringify(existingDB));
-          alert("Berhasil mengupdate data!");
-        } else {
-          alert("Data tidak ditemukan di Local Storage (Mungkin data dummy API).");
-        }
-
-        router.refresh();
-        router.push('/view'); 
+        await axios.patch(`http://localhost:3001/movies/${params.id}`, item);
+        console.log("Update API Berhasil");
       } catch (err) {
-        console.error("Gagal update local:", err);
+        console.warn("Gagal update API, lanjut update local");
       }
-      return; 
+  
+      const existingDB = JSON.parse(localStorage.getItem('movies_db')) || [];
+      const index = existingDB.findIndex(m => m.id == params.id);
+      
+      if (index !== -1) {
+        existingDB[index] = { ...existingDB[index], ...item };
+        localStorage.setItem('movies_db', JSON.stringify(existingDB));
+      } else {
+        const newData = { id: params.id, ...item };
+        localStorage.setItem('movies_db', JSON.stringify([newData, ...existingDB]));
+      }
+      
+      alert("Berhasil mengupdate data!");
+      router.push('/view');
     }
     
     if (direction === 'add') {
@@ -143,7 +128,7 @@ const MovieForm = ({ direction }) => {
     const getData = async () => {
       if (params.id) {
         try {
-          const localData = JSON.parse(localStorage.getItem('movies_db')) || [];
+          const localData = JSON.parse(localStorage.getItem('db.json')) || [];
           const foundLocal = localData.find(m => m.id == params.id);
   
           if (foundLocal) {
@@ -151,17 +136,17 @@ const MovieForm = ({ direction }) => {
               return;
           }
   
-          const response = await axios.get(`https://fooapi.com/api/movies/${params.id}`);
+          const response = await axios.get(`http://localhost:3001/movies/${params.id}`);
             
           if (response.status === 200) {
             setItem(previous => ({
               ...previous,
-              title: response.data.data.title,
-              year: response.data.data.year,
-              genre: response.data.data.genre,
-              director: response.data.data.director,
-              writer: response.data.data.writer,
-              actors: response.data.data.actors,
+              title: response.data.title,
+              year: response.data.year,
+              genre: response.data.genre,
+              director: response.data.director,
+              writer: response.data.writer,
+              actors: response.data.actors,
             }));
           }
         } catch (err) {
