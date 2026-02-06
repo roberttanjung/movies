@@ -77,24 +77,13 @@ const MovieForm = ({ direction }) => {
     }
     
     if (direction === 'add') {
-      axios.post('https://fooapi.com/api/movies', JSON.stringify({
+      axios.post('http://localhost:3001/movies', JSON.stringify({
         'title': item.title,
-        'year':item.year,
-        'rated':'R',
-        'released':'14-10-1994',
-        'runtime':'142 min',
-        'genre':item.genre,
-        'director':item.director,
-        'writer':item.writer,
-        'actors':item.actors,
-        'plot':'A Foo movie',
-        'language':'English',
-        'country':'United States',
-        'awards':'Nominated for 11 oscars',
-        'poster':'Foo poster',
-        'imdbRating':'10',
-        'imdbId':'None',
-        'boxOffice':'$1'
+        'year': item.year,
+        'genre': item.genre,
+        'director': item.director,
+        'writer': item.writer,
+        'actors': item.actors
       }), {
         headers: { 'Content-Type': 'application/json' } 
       })
@@ -118,7 +107,38 @@ const MovieForm = ({ direction }) => {
     }
   }
   };
-  
+
+  const getData = useCallback(async () => {
+    if (params.id) {
+      try {
+
+        const localData = JSON.parse(localStorage.getItem('movies_db')) || [];
+        const foundLocal = localData.find(m => m.id == params.id);
+
+        if (foundLocal) {
+            setItem(foundLocal);
+            return;
+        }
+
+        const response = await axios.get(`http://localhost:3001/movies/${params.id}`);
+          
+        if (response.status === 200) {
+          setItem(previous => ({
+            ...previous,
+            title: response.data.title,
+            year: response.data.year,
+            genre: response.data.genre,
+            director: response.data.director,
+            writer: response.data.writer,
+            actors: response.data.actors,
+          }));
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    }
+  }, [params.id]);
+
   useEffect(() => {
     const getData = async () => {
       if (params.id) {

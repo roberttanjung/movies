@@ -2,26 +2,25 @@
 
 import { useEffect, useCallback, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import PageViewRow from "./Row";
 
 const PageView = () => {
 
-  const [data, setData] = useState([]); 
-    const {push} = useRouter();  
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-      const onGetData = async () => {
-        try {
-          const response = await axios.get('https://fooapi.com/api/movies');
-          console.log('Fetched data:', response);
-          setData(response.data.data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-      onGetData();
-    }, []);
+  const onGetData = useCallback(async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/movies');
+      console.log('Fetched data:', response);
+      setData(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    onGetData();
+  }, [onGetData]);
 
   return (
     <div className="table-container">
@@ -35,7 +34,7 @@ const PageView = () => {
           </tr>
         </thead>
         <tbody>
-        {data.map((item) => (
+          {data.map((item) => (
             <PageViewRow
               key={item.id}
               id={item.id}

@@ -1,8 +1,10 @@
 'use client';
 
 import Link from "next/link";
+import { useState } from "react";
 
 const PageViewRow = ({ id, title, imdbRating, year, genre, director, writer, actors }) => {
+  const [isClicked, setIsClicked] = useState(false);
 
   return (
     <tr>

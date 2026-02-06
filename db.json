@@ -1,0 +1,134 @@
+{
+  "$schema": "./node_modules/json-server/schema.json",
+  "movies": [
+    {
+      "id": "1",
+      "title": "The Shawshank Redemption",
+      "year": "1994",
+      "genre": "Drama",
+      "director": "Frank Darabont",
+      "writer": "Stephen King, Frank Darabont",
+      "actors": "Tim Robbins, Morgan Freeman, Bob Gunton",
+      "imdbRating": "9.3"
+    },
+    {
+      "id": "2",
+      "title": "The Godfather",
+      "year": "1972",
+      "genre": "Crime, Drama",
+      "director": "Francis Ford Coppola",
+      "writer": "Mario Puzo, Francis Ford Coppola",
+      "actors": "Marlon Brando, Al Pacino, James Caan",
+      "imdbRating": "9.2"
+    },
+    {
+      "id": "3",
+      "title": "The Dark Knight",
+      "year": "2008",
+      "genre": "Action, Crime, Drama",
+      "director": "Christopher Nolan",
+      "writer": "Jonathan Nolan, Christopher Nolan, David S. Goyer",
+      "actors": "Christian Bale, Heath Ledger, Aaron Eckhart",
+      "imdbRating": "9.0"
+    },
+    {
+      "id": "4",
+      "title": "The Godfather Part II",
+      "year": "1974",
+      "genre": "Crime, Drama",
+      "director": "Francis Ford Coppola",
+      "writer": "Francis Ford Coppola, Mario Puzo",
+      "actors": "Al Pacino, Robert De Niro, Robert Duvall",
+      "imdbRating": "9.0"
+    },
+    {
+      "id": "5",
+      "title": "12 Angry Men",
+      "year": "1957",
+      "genre": "Crime, Drama",
+      "director": "Sidney Lumet",
+      "writer": "Reginald Rose",
+      "actors": "Henry Fonda, Lee J. Cobb, Martin Balsam",
+      "imdbRating": "9.0"
+    },
+    {
+      "id": "6",
+      "title": "Schindler's List",
+      "year": "1993",
+      "genre": "Biography, Drama, History",
+      "director": "Steven Spielberg",
+      "writer": "Thomas Keneally, Steven Zaillian",
+      "actors": "Liam Neeson, Ralph Fiennes, Ben Kingsley",
+      "imdbRating": "9.0"
+    },
+    {
+      "id": "7",
+      "title": "The Lord of the Rings: The Return of the King",
+      "year": "2003",
+      "genre": "Action, Adventure, Drama",
+      "director": "Peter Jackson",
+      "writer": "J.R.R. Tolkien, Fran Walsh, Philippa Boyens",
+      "actors": "Elijah Wood, Viggo Mortensen, Ian McKellen",
+      "imdbRating": "9.0"
+    },
+    {
+      "id": "8",
+      "title": "Pulp Fiction",
+      "year": "1994",
+      "genre": "Crime, Drama",
+      "director": "Quentin Tarantino",
+      "writer": "Quentin Tarantino, Roger Avary",
+      "actors": "John Travolta, Uma Thurman, Samuel L. Jackson",
+      "imdbRating": "8.9"
+    },
+    {
+      "id": "9",
+      "title": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": "2001",
+      "genre": "Action, Adventure, Drama",
+      "director": "Peter Jackson",
+      "writer": "J.R.R. Tolkien, Fran Walsh, Philippa Boyens",
+      "actors": "Elijah Wood, Ian McKellen, Orlando Bloom",
+      "imdbRating": "8.9"
+    },
+    {
+      "id": "10",
+      "title": "The Good, the Bad and the Ugly",
+      "year": "1966",
+      "genre": "Adventure, Western",
+      "director": "Sergio Leone",
+      "writer": "Luciano Vincenzoni, Sergio Leone, Agenore Incrocci",
+      "actors": "Clint Eastwood, Eli Wallach, Lee Van Cleef",
+      "imdbRating": "8.8"
+    },
+    {
+      "id": "11",
+      "title": "The Good, the Bad and the Ugly",
+      "year": "1966",
+      "genre": "Adventure, Western",
+      "director": "Sergio Leone",
+      "writer": "Luciano Vincenzoni, Sergio Leone, Agenore Incrocci",
+      "actors": "Clint Eastwood, Eli Wallach, Lee Van Cleef",
+      "imdbRating": "8.8"
+    },
+    {
+      "id": "12",
+      "title": "Forrest Gump",
+      "year": "1994",
+      "genre": "Drama, Romance",
+      "director": "Robert Zemeckis",
+      "writer": "Winston Groom, Eric Roth",
+      "actors": "Tom Hanks, Robin Wright, Gary Sinise",
+      "imdbRating": "8.8"
+    },
+    {
+      "id": "9f76",
+      "title": "Test Movie 1",
+      "year": "2022",
+      "genre": "Romance",
+      "director": "Anu",
+      "writer": "Anu",
+      "actors": "Annu"
+    }
+  ]
+}
