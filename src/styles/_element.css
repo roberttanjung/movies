@@ -1,6 +1,14 @@
 .search-box {
+  display: flex;
+  width: 125px;
+}
+
+.search-box-inner {
   position: relative;
-  width: 300px;
+}
+
+.burger-icon {
+  margin-right: 10px;
 }
 
 .search-input {
@@ -14,6 +22,7 @@
 }
 
 .search-icon {
+  display: none;
   position: absolute;
   left: 12px;
   top: 50%;

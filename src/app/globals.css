@@ -3,3 +3,6 @@
 @import '../styles/_root.css';
 @import '../styles/_element.css';
 @import '../styles/_layout.css';
+
+@import '../styles/responsive/_layout.css';
+@import '../styles/responsive/_element.css';
