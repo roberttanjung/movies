@@ -5,11 +5,16 @@
       "id": "1",
       "title": "The Shawshank Redemption",
       "year": "1994",
-      "genre": "Drama",
+      "genre": "Drama/Crime",
       "director": "Frank Darabont",
       "writer": "Stephen King, Frank Darabont",
       "actors": "Tim Robbins, Morgan Freeman, Bob Gunton",
-      "imdbRating": "9.3"
+      "imdbRating": "9.3",
+      "method": "PATCH",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"title\":\"The Shawshank Redemption\",\"year\":\"1994\",\"genre\":\"Drama/Crime\",\"director\":\"Frank Darabont\",\"writer\":\"Stephen King, Frank Darabont\",\"actors\":\"Tim Robbins, Morgan Freeman, Bob Gunton\"}"
     },
     {
       "id": "2",
@@ -131,13 +136,13 @@
       "actors": "Annu"
     },
     {
-      "id": "029f",
-      "title": "Test Film",
-      "year": "2022",
-      "genre": "Romance",
-      "director": "Anu",
-      "writer": "Anu 2",
-      "actors": "Annu"
+      "id": "e99e",
+      "title": "The Avengers",
+      "year": "2012",
+      "genre": "Action/Adventure",
+      "director": "Joss Whedon",
+      "writer": "Joss Whedon",
+      "actors": "Robert Downey Jr, Scarlett Johansson, Chris Evans"
     }
   ]
 }

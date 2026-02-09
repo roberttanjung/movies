@@ -38,6 +38,28 @@ const MovieForm = ({ direction }) => {
   };
 
   const handleSubmit = async () => {
+    if (direction === 'edit') {
+      try {
+        await axios.patch(`http://localhost:3001/movies/${params.id}`, item);
+        console.log("Update API Berhasil");
+      } catch (err) {
+        console.warn("Gagal update API, lanjut update local");
+      }
+  
+      const existingDB = JSON.parse(localStorage.getItem('movies_db')) || [];
+      const index = existingDB.findIndex(m => m.id == params.id);
+      
+      if (index !== -1) {
+        existingDB[index] = { ...existingDB[index], ...item };
+        localStorage.setItem('movies_db', JSON.stringify(existingDB));
+      } else {
+        const newData = { id: params.id, ...item };
+        localStorage.setItem('movies_db', JSON.stringify([newData, ...existingDB]));
+      }
+      
+      alert("Berhasil mengupdate data!");
+      router.push('/view');
+    }
     
     if (direction === 'add') {
       axios.post('http://localhost:3001/movies', JSON.stringify({
@@ -63,7 +85,7 @@ const MovieForm = ({ direction }) => {
       localStorage.setItem('movies_db', JSON.stringify([localData, ...existingDB]));
       
       router.refresh();
-      router.push('/view'); 
+      router.push(`/movie/view/${params.id}`); 
       
     } catch (err) {
       console.error("Error saving local:", err);
@@ -103,8 +125,38 @@ const MovieForm = ({ direction }) => {
   }, [params.id]);
 
   useEffect(() => {
+    const getData = async () => {
+      if (params.id) {
+        try {
+          const localData = JSON.parse(localStorage.getItem('db.json')) || [];
+          const foundLocal = localData.find(m => m.id == params.id);
+  
+          if (foundLocal) {
+              setItem(foundLocal);
+              return;
+          }
+  
+          const response = await axios.get(`http://localhost:3001/movies/${params.id}`);
+            
+          if (response.status === 200) {
+            setItem(previous => ({
+              ...previous,
+              title: response.data.title,
+              year: response.data.year,
+              genre: response.data.genre,
+              director: response.data.director,
+              writer: response.data.writer,
+              actors: response.data.actors,
+            }));
+          }
+        } catch (err) {
+          console.error("Error fetching data:", err);
+        }
+      }
+    };
+
     getData();
-  }, [getData]);
+  }, [params.id]); 
 
   const getTitle = () => {
     if (direction === 'add') return "Tambah Movie";

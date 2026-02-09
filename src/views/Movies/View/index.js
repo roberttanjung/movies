@@ -8,20 +8,20 @@ const PageView = () => {
 
   const [data, setData] = useState([]);
 
-  const onGetData = useCallback(async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/movies');
-      console.log('Fetched data:', response);
-      setData(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }, []);
-
   useEffect(() => {
+    const onGetData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/movies');
+        console.log('Fetched data:', response);
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
     onGetData();
-  }, [onGetData]);
 
+
+  }, []);
   return (
     <div className="table-container">
       <table className="movie-table">
