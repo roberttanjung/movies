@@ -24,13 +24,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}suppressHydrationWarning={true}>
-
         <div id="test-body">
         <div className="main-container">
-          
-          <Aside />
-
-              <Header />        
+            <Aside />
+            <Header />        
           <main className="content-area">
             {children}
           </main>

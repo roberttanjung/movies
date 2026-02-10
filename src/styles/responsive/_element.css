@@ -1,0 +1,11 @@
+@media screen and (min-width: 1024px) {
+  .search-box {
+    width: 300px;
+  }
+  .burger-icon {
+    display: none;
+  }
+  .search-icon {
+    display: block;
+  }
+}

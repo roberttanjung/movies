@@ -1,0 +1,28 @@
+/* Focus on: Tab
+@media screen and (min-width: 768px) {
+  
+} */
+
+/* Focus on: Desktop */
+@media screen and (min-width: 1024px) {
+  .main-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: 70px 1fr;
+  }
+  .sidebar {
+    position: relative;
+    top: 0;
+    display: flex;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    flex-direction: column;
+    height: 100dvh;
+    padding: 24px;
+    border-right: 1px solid var(--border-color);
+  }
+  .header {
+    position: relative;
+    padding: 10px 15px;
+  }
+}

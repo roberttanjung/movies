@@ -1,17 +1,19 @@
 'use client';
 
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, use } from "react";
 import axios from "axios";
 import PageViewRow from "./Row";
+import { useSearchParams } from "next/navigation";
 
 const PageView = () => {
-
+  const searchParams = useSearchParams();
+  const searchTitle = searchParams.get('title');
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const onGetData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/movies');
+        const response = await axios.get(`http://localhost:3001/movies?title=${searchTitle || ''}`);
         console.log('Fetched data:', response);
         setData(response.data);
       } catch (error) {
@@ -21,7 +23,8 @@ const PageView = () => {
     onGetData();
 
 
-  }, []);
+  }, [searchTitle]);
+
   return (
     <div className="table-container">
       <table className="movie-table">

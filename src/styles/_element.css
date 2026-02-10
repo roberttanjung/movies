@@ -1,6 +1,14 @@
 .search-box {
+  display: flex;
+  width: 125px;
+}
+
+.search-box-inner {
   position: relative;
-  width: 300px;
+}
+
+.burger-icon {
+  margin-right: 10px;
 }
 
 .search-input {
@@ -14,6 +22,7 @@
 }
 
 .search-icon {
+  display: none;
   position: absolute;
   left: 12px;
   top: 50%;
@@ -186,6 +195,7 @@
   justify-content: center;
   border: none;
   transition: opacity 0.2s;
+  color: #ffffff;
 }
 
 .btn:hover {
@@ -193,13 +203,15 @@
 }
 
 .btn-secondary {
-  background-color: #334155; 
-  color: #ffffff;
+  background-color: #334155;
 }
 
 .btn-primary {
-  background-color: #6366f1; 
-  color: #ffffff;
+  background-color: #6366f1;
+}
+
+.btn-success {
+  background-color: #10b981;
 }
 
 .tooltip {

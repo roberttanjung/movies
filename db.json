@@ -33,7 +33,7 @@
       "genre": "Action, Crime, Drama",
       "director": "Christopher Nolan",
       "writer": "Jonathan Nolan, Christopher Nolan, David S. Goyer",
-      "actors": "Christian Bale, Heath Ledger, Aaron Eckhart",
+      "actors": "Christian Bale, Heath Ledger",
       "imdbRating": "9.0"
     },
     {
@@ -143,6 +143,15 @@
       "director": "Joss Whedon",
       "writer": "Joss Whedon",
       "actors": "Robert Downey Jr, Scarlett Johansson, Chris Evans"
+    },
+    {
+      "id": "4ca0",
+      "title": "The Batman",
+      "year": "2022",
+      "genre": "Action/Crime",
+      "director": "Matt Reeves",
+      "writer": "Matt Reeves, Peter Craig",
+      "actors": "Robert Pattinson, Zoë Kravitz, Paul Dano"
     }
   ]
 }
