@@ -8,6 +8,7 @@ import Link from "next/link";
 const MovieForm = ({ direction }) => {
   const params = useParams();
   const router = useRouter();
+  const [isSuccess, setIsSuccess] = useState(false);
   const isView = direction === "view";
 
   const [item, setItem] = useState({
@@ -16,7 +17,7 @@ const MovieForm = ({ direction }) => {
     genre: '',
     director: '',
     writer: '',
-    actors: '', 
+    actors: ''
   });
 
   const handleChange = (e) => {
@@ -37,31 +38,30 @@ const MovieForm = ({ direction }) => {
     }));
   };
 
+  const onSuccess = () => {
+    setIsSuccess(true);
+
+    setTimeout(() => {
+      setItem(prev => ({
+        ...prev,
+        title: '',
+        year: '',
+        genre: '',
+        director: '',
+        writer: '',
+        actors: ''
+      }))
+      setIsSuccess(false);
+      router.push('/view')
+    }, 3000);
+  };
+
   const handleSubmit = async () => {
     if (direction === 'edit') {
-      try {
-        await axios.patch(`http://localhost:3001/movies/${params.id}`, item);
-        console.log("Update API Berhasil");
-      } catch (err) {
-        console.warn("Gagal update API, lanjut update local");
-      }
-  
-      const existingDB = JSON.parse(localStorage.getItem('movies_db')) || [];
-      const index = existingDB.findIndex(m => m.id == params.id);
-      
-      if (index !== -1) {
-        existingDB[index] = { ...existingDB[index], ...item };
-        localStorage.setItem('movies_db', JSON.stringify(existingDB));
-      } else {
-        const newData = { id: params.id, ...item };
-        localStorage.setItem('movies_db', JSON.stringify([newData, ...existingDB]));
-      }
-      
-      alert("Berhasil mengupdate data!");
-      router.push('/view');
-    }
-    
-    if (direction === 'add') {
+      axios.patch(`http://localhost:3001/movies/${params.id}`, item).then(() => {
+        onSuccess();
+      });
+    } else if (direction === 'add') {
       axios.post('http://localhost:3001/movies', JSON.stringify({
         'title': item.title,
         'year': item.year,
@@ -72,25 +72,10 @@ const MovieForm = ({ direction }) => {
       }), {
         headers: { 'Content-Type': 'application/json' } 
       })
-      .then(res => console.log("Axios Success:", res.data)) 
-      .catch(err => console.warn("Axios Error (Simulasi):", err.message));
-  } else {
-    try {
-      const localData = {
-        'id': Date.now(), 
-        ...item,
-      };
-  
-      const existingDB = JSON.parse(localStorage.getItem('movies_db')) || [];
-      localStorage.setItem('movies_db', JSON.stringify([localData, ...existingDB]));
-      
-      router.refresh();
-      router.push(`/movie/view/${params.id}`); 
-      
-    } catch (err) {
-      console.error("Error saving local:", err);
+      .then(() => {
+        onSuccess();
+      });
     }
-  }
   };
 
   const getData = useCallback(async () => {
@@ -264,8 +249,8 @@ const MovieForm = ({ direction }) => {
                Ubah
              </Link>
           ) : (
-             <button type="button" onClick={handleSubmit} className="btn btn-primary">
-               {direction === 'add' ? 'Tambah' : 'Simpan'}
+             <button type="button" onClick={handleSubmit} className={`btn ${isSuccess ? 'btn-success' : 'btn-primary'}`}>
+                {isSuccess ? 'Berhasil!!!' : direction === 'add' ? 'Tambah' : 'Simpan'}
              </button>
           )}
         </div>

@@ -1,11 +1,11 @@
 .main-container {
-  display: grid;
+  display: block;
   height: 100vh;
   width: 100vw;
 }
 
 .sidebar {
-  position: fixed;
+  position: absolute;
   top: 56px;
   display: none;
   height: calc(100dvh - 56px);
@@ -75,6 +75,7 @@
 }
 
 .content-area {
+  height: calc(100dvh - 56px);
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   padding: 24px;
